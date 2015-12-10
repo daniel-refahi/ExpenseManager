@@ -1,0 +1,5 @@
+C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManager.Models\bin\Debug\ExpenseManager.Models.dll
+C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManager.Models\bin\Debug\ExpenseManager.Models.pdb
+C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.dll
+C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.pdb
+C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.csprojResolveAssemblyReference.cache
