@@ -14,12 +14,12 @@ namespace ExpenseManger.Repository
         bool IsDisposed { get; set; }
     }
 
-    public abstract class RepositoryBase<TContext> : IDisposable
+    public abstract class RepositoryBase<TContext> : IDisposable 
         where TContext : DbContext, IDisposedTracker, new()
     {
         private TContext _DataContext;
 
-        protected virtual TContext DataContext
+        protected virtual TContext DataContext 
         {
             get
             {

@@ -8,10 +8,11 @@ namespace ExpenseManager.Models
 {
     public class Expense
     {
-        public int ID { get; set; }
+        public decimal ID { get; set; }
         public string Description { get; set; }
+        public double Amount { get; set; }
         public DateTime ExpenseDate { get; set; }
-        public int User { get; set; }
+        public string User { get; set; }
 
         public virtual Category Category { get; set; }
 

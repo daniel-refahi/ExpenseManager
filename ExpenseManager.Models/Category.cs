@@ -7,7 +7,7 @@ namespace ExpenseManager.Models
 {
     public class Category
     {
-        public int ID { get; set; }
+        public decimal ID { get; set; }
         
         [MaxLength(25)]
         [MinLength(5)]
@@ -18,7 +18,7 @@ namespace ExpenseManager.Models
         [AmountValidator("Plan")]
         public double Plan { get; set; }
 
-        public int User { get; set; }
+        public string User { get; set; }
 
         public virtual ICollection<Expense> Expenses { get; set; }
     }

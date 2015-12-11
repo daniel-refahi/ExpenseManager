@@ -9,7 +9,7 @@ namespace ExpenseManger.Repository.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
         }
 
         protected override void Seed(ExpenseManager context)

@@ -10,3 +10,15 @@ C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseMang
 C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb
 C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.dll
 C:\Users\Daniel\documents\visual studio 2015\Projects\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.pdb
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.dll.config
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.pdb
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.pdb
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csprojResolveAssemblyReference.cache
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb

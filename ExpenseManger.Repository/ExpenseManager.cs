@@ -10,6 +10,11 @@ namespace ExpenseManger.Repository
 {
     public class ExpenseManager:DbContext, IDisposedTracker
     {
+        
+        public ExpenseManager()
+        {                        
+        }
+
         public DbSet<Expense> Expenses { get; set; }
         public DbSet<Category> Categories { get; set; }
 

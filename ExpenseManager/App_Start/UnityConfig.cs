@@ -1,6 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
+using ExpenseManger.Repository;
 
 namespace ExpenseManager.App_Start
 {
@@ -36,7 +37,7 @@ namespace ExpenseManager.App_Start
             // container.LoadConfiguration();
 
             // TODO: Register your types here
-            // container.RegisterType<IProductRepository, ProductRepository>();
+             //container.RegisterType<IManagerRepository, ManagerRepository>();
         }
     }
 }

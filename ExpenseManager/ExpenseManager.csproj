@@ -194,6 +194,7 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Global.asax.cs">
@@ -201,14 +202,6 @@
     </Compile>
     <Compile Include="InfraStructure\CutomAttributes.cs" />
     <Compile Include="InfraStructure\Helpers.cs" />
-    <Compile Include="Migrations\201512080131514_InitialCreate.cs" />
-    <Compile Include="Migrations\201512080131514_InitialCreate.Designer.cs">
-      <DependentUpon>201512080131514_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512080146427_IsPremium.cs" />
-    <Compile Include="Migrations\201512080146427_IsPremium.Designer.cs">
-      <DependentUpon>201512080146427_IsPremium.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -272,6 +265,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Expenses\Create.cshtml" />
+    <Content Include="Views\Expenses\Delete.cshtml" />
+    <Content Include="Views\Expenses\Details.cshtml" />
+    <Content Include="Views\Expenses\Edit.cshtml" />
+    <Content Include="Views\Expenses\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -285,12 +283,14 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512080131514_InitialCreate.resx">
-      <DependentUpon>201512080131514_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512080146427_IsPremium.resx">
-      <DependentUpon>201512080146427_IsPremium.cs</DependentUpon>
-    </EmbeddedResource>
+    <ProjectReference Include="..\ExpenseManager.Models\ExpenseManager.Models.csproj">
+      <Project>{f613f71e-b5cf-4ae6-af96-755266f7671c}</Project>
+      <Name>ExpenseManager.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ExpenseManger.Repository\ExpenseManger.Repository.csproj">
+      <Project>{a6b9f0a3-c736-4681-a983-e5aeeaa9e70f}</Project>
+      <Name>ExpenseManger.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

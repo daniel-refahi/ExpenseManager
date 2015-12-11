@@ -13,7 +13,7 @@ namespace ExpenseManager.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "ExpenseManager.Models.ApplicationDbContext";
         }
 
