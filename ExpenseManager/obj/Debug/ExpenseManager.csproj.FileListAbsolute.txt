@@ -116,10 +116,6 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Secur
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Security.OAuth.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Security.Twitter.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.ServiceLocation.dll
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Configuration.dll
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.dll
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Mvc.dll
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Web.Infrastructure.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Newtonsoft.Json.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Owin.dll
@@ -137,10 +133,6 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\ExpenseManger.Reposi
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.ServiceLocation.pdb
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.ServiceLocation.xml
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.xml
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Configuration.xml
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Mvc.xml
-C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\System.Web.Helpers.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\System.Web.Mvc.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\System.Web.Optimization.xml
@@ -167,3 +159,11 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Secur
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.pdb
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Mvc.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Mvc.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml

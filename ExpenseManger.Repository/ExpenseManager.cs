@@ -11,7 +11,7 @@ namespace ExpenseManger.Repository
     public class ExpenseManager:DbContext, IDisposedTracker
     {
         
-        public ExpenseManager()
+        public ExpenseManager() : base("RepositoryConnection")
         {                        
         }
 

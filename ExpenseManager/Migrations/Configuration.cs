@@ -17,16 +17,17 @@ namespace ExpenseManager.Migrations
             ContextKey = "ExpenseManager.Models.ApplicationDbContext";
         }
 
-        protected override void Seed(ExpenseManager.Models.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
+            
             AddUserAndRole(context);            
         }
 
-        bool AddUserAndRole(ExpenseManager.Models.ApplicationDbContext context)
+        bool AddUserAndRole(ApplicationDbContext context)
         {
             IdentityResult ir;
             var rm = new RoleManager<IdentityRole> (new RoleStore<IdentityRole>(context));
-            ir = rm.Create(new IdentityRole(Helpers.FullAccessProfile));
+            ir = rm.Create(new IdentityRole("Premium"));
             var um = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));            
             return ir.Succeeded;
         }

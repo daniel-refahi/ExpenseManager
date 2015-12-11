@@ -38,7 +38,7 @@ namespace ExpenseManager.Controllers
             expense.User = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                _ManagerRepository.AddExpense(expense);
+                OperationStatus opt = _ManagerRepository.AddExpense(expense);
                 return RedirectToAction("Index");
             }
 
