@@ -10,6 +10,7 @@ namespace ExpenseManger.Repository
 {
     public interface IManagerRepository
     {
+        // some test
         List<Expense> GetExpenses(int year, int month);
         List<Expense> GetExpenses(int categoryId, int year, int month);
         List<CategoryDetail> GetCategories(int year, int month);
