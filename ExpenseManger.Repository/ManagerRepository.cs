@@ -11,23 +11,26 @@ namespace ExpenseManger.Repository
     public interface IManagerRepository
     {
         #region Expense
-        List<Expense> GetExpenses(int year, int month);
-        List<Expense> GetExpenses(decimal categoryId, int year, int month);
+        List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate);
+        List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
         OperationStatus AddExpense(Expense expense);
         OperationStatus UpdateExpense(Expense expense);
-        OperationStatus DeleteExpense(decimal id);
+        OperationStatus DeleteExpense(int id);
+        Expense GetExpense(int id);    
         #endregion
 
         #region Category
-        List<CategoryDetail> GetCategories(int year, int month);
+        List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate);
+        List<string> GetCategoriesNames(string user);
         OperationStatus AddCategory(Category category);
         OperationStatus UpdateCategory(Category category);
-        OperationStatus DeleteCategory(decimal id);
+        OperationStatus DeleteCategory(int id);
+        Category GetCategory(int id);        
         #endregion
 
     }
 
-    public class ManagerRepository : RepositoryBase<ExpenseManager>, IManagerRepository
+    public class ManagerRepository : RepositoryBase<ExpenseManagerContext>, IManagerRepository
     {
         #region Expense
         public OperationStatus AddExpense(Expense expense)
@@ -42,7 +45,7 @@ namespace ExpenseManger.Repository
                 }
                 catch (Exception ex)
                 {
-                    return OperationStatus.CreateFromException("Error on adding expense.", ex);
+                    return OperationStatus.CreateFromSystemException("Error on adding expense.", ex);
                 }
             }
         }
@@ -59,12 +62,12 @@ namespace ExpenseManger.Repository
                 }
                 catch (Exception ex)
                 {
-                    return OperationStatus.CreateFromException("Error on updating expense.", ex);
+                    return OperationStatus.CreateFromSystemException("Error on updating expense.", ex);
                 }
             }
         }
 
-        public OperationStatus DeleteExpense(decimal id)
+        public OperationStatus DeleteExpense(int id)
         {
             using (DataContext)
             {                               
@@ -79,53 +82,195 @@ namespace ExpenseManger.Repository
                 }
                 catch (Exception ex)
                 {
-                    return OperationStatus.CreateFromException("Error on deleting expense.", ex);
+                    return OperationStatus.CreateFromSystemException("Error on deleting expense.", ex);
                 }
             }
         }
 
-        public List<Expense> GetExpenses(int year, int month)
+        public List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate)
         {
-            using (DataContext)
+            try
             {
-                return DataContext.Expenses
-                        .Where(e => e.ExpenseDate.Month == month && 
-                                    e.ExpenseDate.Year == year)
-                        .ToList();
+                using (DataContext)
+                {
+                    return DataContext.Expenses
+                            .Where(e => e.ExpenseDate >= startDate &&
+                                        e.ExpenseDate < endDate &&
+                                        e.User == user)
+                            .ToList();
+                }
             }
+            catch (Exception)
+            {
+                return null;
+            }            
         }
 
-        public List<Expense> GetExpenses(decimal categoryId, int year, int month)
+        public List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate)
         {
-            return GetExpenses(year, month)
+            try
+            {
+                return GetExpenses(user, startDate, endDate)
                     .Where(e => e.Category.ID == categoryId)
-                    .ToList();                    
+                    .ToList();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
+        }
+
+        public Expense GetExpense(int id)
+        {
+            try
+            {
+                using (DataContext)
+                {
+                    return DataContext.Expenses.Find(id);
+                }
+            }
+            catch (Exception)
+            {
+                return new Expense();
+            }
+            
         }
 
         #endregion
 
         #region Category
+
         public OperationStatus AddCategory(Category category)
         {
-            throw new NotImplementedException();
+            using (DataContext)
+            {
+                // category name must be unique for each user.
+                var currentCategory = DataContext.Categories
+                                         .Where(c => c.Name == category.Name &&
+                                                c.User == category.User);
+                if (currentCategory.Count() != 0)
+                    return OperationStatus.CreateFromUserException("Category already exists.");
+                
+                DataContext.Categories.Add(category);
+                try
+                {
+                    DataContext.SaveChanges();
+                    return new OperationStatus { Status = true };
+                }
+                catch (Exception ex)
+                {
+                    return OperationStatus.CreateFromSystemException("Error on adding category.", ex);
+                }
+            }
         }
 
-        public OperationStatus DeleteCategory(decimal id)
+        public OperationStatus DeleteCategory(int id)
         {
-            throw new NotImplementedException();
+            using (DataContext)
+            {
+                try
+                {
+                    // deleting all expenses in this category first.
+                    DataContext.Expenses.RemoveRange(
+                        DataContext.Expenses.Where(e=> e.Category.ID == id));
+
+                    var category = DataContext.Categories
+                                                  .Where(c => c.ID == id)
+                                                  .FirstOrDefault();
+
+                    DataContext.Entry(category).State = System.Data.Entity.EntityState.Deleted;
+                    DataContext.SaveChanges();
+                    return new OperationStatus { Status = true };
+                }
+                catch (Exception ex)
+                {
+                    return OperationStatus.CreateFromSystemException("Error on deleting category.", ex);
+                }
+            }
         }
-        
-        public List<CategoryDetail> GetCategories(int year, int month)
-        {
-            throw new NotImplementedException();
-        }
-        
+
         public OperationStatus UpdateCategory(Category category)
         {
-            throw new NotImplementedException();
+            using (DataContext)
+            {
+                DataContext.Entry(category).State = System.Data.Entity.EntityState.Modified;
+                try
+                {
+                    DataContext.SaveChanges();
+                    return new OperationStatus { Status = true };
+                }
+                catch (Exception ex)
+                {
+                    return OperationStatus.CreateFromSystemException("Error on updating category.", ex);
+                }
+            }
         }
-        #endregion
+
+        public List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                using (DataContext)
+                {
+                    return DataContext.Categories
+                                .Where(c => c.User == user)
+                                .Select(c =>
+                                    new CategoryDetail()
+                                    {
+                                        CategoryName = c.Name,
+                                        Plan = c.Plan,
+                                        TotalExpense = DataContext.Expenses
+                                            .Where(e => e.Category.ID == c.ID)
+                                            .Sum(e => e.Amount)
+                                    })
+                                .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+                       
+        }
+
+        public List<string> GetCategoriesNames(string user)
+        {
+            try
+            {
+                using (DataContext)
+                {
+                    return DataContext.Categories
+                                .Where(c => c.User == user)
+                                .Select(c => c.Name)
+                                .ToList();
+                }
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+            
+        }
         
+        public Category GetCategory(int id)
+        {
+            try
+            {
+                using (DataContext)
+                {
+                    return DataContext.Categories.Find(id);
+                }
+                    
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        #endregion
+
     }
 
 

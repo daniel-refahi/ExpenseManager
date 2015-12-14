@@ -131,7 +131,7 @@ namespace ExpenseManger.Repository
             }
             catch (Exception exp)
             {
-                OperationStatus.CreateFromException("Error executing store command: ", exp);
+                OperationStatus.CreateFromSystemException("Error executing store command: ", exp);
             }
             return opStatus;
         }
@@ -147,7 +147,7 @@ namespace ExpenseManger.Repository
             }
             catch (Exception exp)
             {
-                opStatus = OperationStatus.CreateFromException("Error saving " + typeof(T) + ".", exp);
+                opStatus = OperationStatus.CreateFromSystemException("Error saving " + typeof(T) + ".", exp);
             }
 
             return opStatus;

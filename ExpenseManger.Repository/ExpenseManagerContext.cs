@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace ExpenseManger.Repository
 {
-    public class ExpenseManager:DbContext, IDisposedTracker
+    public class ExpenseManagerContext:DbContext, IDisposedTracker
     {
         
-        public ExpenseManager() : base("RepositoryConnection")
+        public ExpenseManagerContext() : base("RepositoryConnection")
         {                        
         }
 

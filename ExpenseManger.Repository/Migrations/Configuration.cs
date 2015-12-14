@@ -5,14 +5,14 @@ namespace ExpenseManger.Repository.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ExpenseManager>
+    internal sealed class Configuration : DbMigrationsConfiguration<ExpenseManagerContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ExpenseManager context)
+        protected override void Seed(ExpenseManagerContext context)
         {
             //  This method will be called after migrating to the latest version.
 

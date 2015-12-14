@@ -11,6 +11,7 @@ namespace ExpenseManager.Models
     public class OperationStatus
     {
         public bool Status { get; set; }
+        public bool IsSystemException { get; set; }
         public int RecordsAffected { get; set; }
         public string Message { get; set; }
         public Object OperationID { get; set; }
@@ -19,13 +20,25 @@ namespace ExpenseManager.Models
         public string ExceptionInnerMessage { get; set; }
         public string ExceptionInnerStackTrace { get; set; }
 
-        public static OperationStatus CreateFromException(string message, Exception ex)
+        public static OperationStatus CreateFromUserException(string message)
+        {
+            return new OperationStatus
+            {
+                Status = false,
+                Message = message,
+                OperationID = null,
+                IsSystemException = false
+            };
+        }
+
+        public static OperationStatus CreateFromSystemException(string message, Exception ex)
         {
             OperationStatus opStatus = new OperationStatus
             {
                 Status = false,
                 Message = message,
-                OperationID = null
+                OperationID = null,
+                IsSystemException = true
             };
 
             if (ex != null)

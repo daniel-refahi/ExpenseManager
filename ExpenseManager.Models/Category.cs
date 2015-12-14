@@ -7,7 +7,7 @@ namespace ExpenseManager.Models
 {
     public class Category
     {
-        public decimal ID { get; set; }
+        public Int64 ID { get; set; }
         
         [MaxLength(25)]
         [MinLength(5)]

@@ -50,7 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExpenseManager.cs" />
+    <Compile Include="ExpenseManagerContext.cs" />
     <Compile Include="HelperModels\CategoryDetail.cs" />
     <Compile Include="HelperModels\CategoryReport.cs" />
     <Compile Include="ManagerRepository.cs" />

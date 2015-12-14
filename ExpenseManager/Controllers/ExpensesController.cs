@@ -23,7 +23,10 @@ namespace ExpenseManager.Controllers
         
         public ActionResult Index()
         {
-            return View(_ManagerRepository.GetExpenses(DateTime.Now.Year, DateTime.Now.Month));
+            var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
+                                      DateTime.Now.AddYears(-100), DateTime.Now.AddYears(100));
+
+            return View(model);
         }
         
         public ActionResult Create()
@@ -39,95 +42,82 @@ namespace ExpenseManager.Controllers
             if (ModelState.IsValid)
             {
                 OperationStatus opt = _ManagerRepository.AddExpense(expense);
+                if (!opt.Status)
+                {
+                    ModelState.AddModelError("", opt.Message);
+                    return View(expense);
+                }
                 return RedirectToAction("Index");
             }
-
             return View(expense);
         }
 
-        //// GET: Expenses/Details/5
-        //public ActionResult Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Expense expense = db.Expenses.Find(id);
-        //    if (expense == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(expense);
-        //}
+        public ActionResult Details(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Expense expense = _ManagerRepository.GetExpense((int)id);
+            if (expense == null)
+            {
+                return HttpNotFound();
+            }
+            return View(expense);
+        }
 
+        public ActionResult Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Expense expense = _ManagerRepository.GetExpense((int)id);
+            if (expense == null)
+            {
+                return HttpNotFound();
+            }
+            return View(expense);
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit([Bind(Include = "Amount,Description,ExpenseDate")] Expense expense)
+        {
+            if (ModelState.IsValid)
+            {
+                OperationStatus opt = _ManagerRepository.UpdateExpense(expense);
+                if (!opt.Status)
+                {
+                    ModelState.AddModelError("", opt.Message);
+                    return View(expense);
+                }
+                return RedirectToAction("Index");
+            }
+            return View(expense);
+        }
 
+        public ActionResult Delete(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Expense expense = _ManagerRepository.GetExpense((int)id);
+            if (expense == null)
+            {
+                return HttpNotFound();
+            }
+            return View(expense);
+        }
 
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            _ManagerRepository.DeleteExpense(id);            
+            return RedirectToAction("Index");
+        }
 
-        //// GET: Expenses/Edit/5
-        //public ActionResult Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Expense expense = db.Expenses.Find(id);
-        //    if (expense == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(expense);
-        //}
-
-        //// POST: Expenses/Edit/5
-        //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Edit([Bind(Include = "ID,Description,ExpenseDate,User")] Expense expense)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(expense).State = EntityState.Modified;
-        //        db.SaveChanges();
-        //        return RedirectToAction("Index");
-        //    }
-        //    return View(expense);
-        //}
-
-        //// GET: Expenses/Delete/5
-        //public ActionResult Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Expense expense = db.Expenses.Find(id);
-        //    if (expense == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(expense);
-        //}
-
-        //// POST: Expenses/Delete/5
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult DeleteConfirmed(int id)
-        //{
-        //    Expense expense = db.Expenses.Find(id);
-        //    db.Expenses.Remove(expense);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }
