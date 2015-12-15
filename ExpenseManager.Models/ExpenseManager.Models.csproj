@@ -44,6 +44,8 @@
     <Compile Include="Attributes\AmountValidator.cs" />
     <Compile Include="Category.cs" />
     <Compile Include="Expense.cs" />
+    <Compile Include="HelperModels\CategoryDetail.cs" />
+    <Compile Include="HelperModels\CategoryReport.cs" />
     <Compile Include="OperationStatus.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

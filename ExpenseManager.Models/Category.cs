@@ -9,13 +9,13 @@ namespace ExpenseManager.Models
     {
         public Int64 ID { get; set; }
         
-        [MaxLength(25)]
-        [MinLength(5)]
+        [MaxLength(25, ErrorMessage = "Maximum lenght for category name is 25")]
+        [MinLength(3, ErrorMessage ="Minimum lenght for category name is 3")]
         [Display(Name = "Category Name")]
-        [RegularExpression("[A-Z|a-z]")]
+        [RegularExpression("^[a-zA-Z0-9-_.]+$", ErrorMessage = "Category name has unacceptable characters.")]
         public string Name { get; set; }
 
-        [AmountValidator("Plan")]
+        [AmountValidator("Plan")]        
         public double Plan { get; set; }
 
         public string User { get; set; }

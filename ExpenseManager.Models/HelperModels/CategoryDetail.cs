@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System;
 
-namespace ExpenseManger.Repository.HelperModels
+namespace ExpenseManger.Model.HelperModels
 {
     public class CategoryDetail
     {
         public double TotalExpense { get; set; }
         public double Plan { get; set; }
         public string CategoryName { get; set; }
+        public Int64 ID { get; set; }
     }
 }

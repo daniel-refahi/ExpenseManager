@@ -1,5 +1,5 @@
 ﻿using ExpenseManager.Models;
-using ExpenseManger.Repository.HelperModels;
+using ExpenseManger.Model.HelperModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +15,8 @@ namespace ExpenseManger.Repository
         List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
         OperationStatus AddExpense(Expense expense);
         OperationStatus UpdateExpense(Expense expense);
-        OperationStatus DeleteExpense(int id);
-        Expense GetExpense(int id);    
+        OperationStatus DeleteExpense(Int64 id);
+        Expense GetExpense(Int64 id);    
         #endregion
 
         #region Category
@@ -24,8 +24,8 @@ namespace ExpenseManger.Repository
         List<string> GetCategoriesNames(string user);
         OperationStatus AddCategory(Category category);
         OperationStatus UpdateCategory(Category category);
-        OperationStatus DeleteCategory(int id);
-        Category GetCategory(int id);        
+        OperationStatus DeleteCategory(Int64 id);
+        Category GetCategory(Int64 id);        
         #endregion
 
     }
@@ -53,10 +53,15 @@ namespace ExpenseManger.Repository
         public OperationStatus UpdateExpense(Expense expense)
         {
             using (DataContext)
-            {
-                DataContext.Entry(expense).State = System.Data.Entity.EntityState.Modified;
+            {                
                 try
                 {
+                    Expense updatedExpense = GetExpense(expense.ID);
+                        updatedExpense.ExpenseDate = expense.ExpenseDate;
+                        updatedExpense.Description = expense.Description;
+                        updatedExpense.Amount = expense.Amount;
+
+                    DataContext.Entry(updatedExpense).State = System.Data.Entity.EntityState.Modified;
                     DataContext.SaveChanges();
                     return new OperationStatus { Status = true };
                 }
@@ -67,7 +72,7 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public OperationStatus DeleteExpense(int id)
+        public OperationStatus DeleteExpense(Int64 id)
         {
             using (DataContext)
             {                               
@@ -121,7 +126,7 @@ namespace ExpenseManger.Repository
             
         }
 
-        public Expense GetExpense(int id)
+        public Expense GetExpense(Int64 id)
         {
             try
             {
@@ -165,7 +170,7 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public OperationStatus DeleteCategory(int id)
+        public OperationStatus DeleteCategory(Int64 id)
         {
             using (DataContext)
             {
@@ -218,6 +223,7 @@ namespace ExpenseManger.Repository
                                 .Select(c =>
                                     new CategoryDetail()
                                     {
+                                        ID = c.ID,
                                         CategoryName = c.Name,
                                         Plan = c.Plan,
                                         TotalExpense = DataContext.Expenses
@@ -253,7 +259,7 @@ namespace ExpenseManger.Repository
             
         }
         
-        public Category GetCategory(int id)
+        public Category GetCategory(Int64 id)
         {
             try
             {

@@ -22,3 +22,6 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\Enti
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.Migrations.updatecategory.resources
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csproj.GenerateResource.Cache
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.Migrations.updatecategory2.resources

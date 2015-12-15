@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ExpenseManager.Models;
 using ExpenseManger.Repository;
 using Microsoft.AspNet.Identity;
+using ExpenseManger.Model.HelperModels;
 
 namespace ExpenseManager.Controllers
 {   
@@ -25,8 +26,8 @@ namespace ExpenseManager.Controllers
         {
             var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
                                       DateTime.Now.AddYears(-100), DateTime.Now.AddYears(100));
-
-            return View(model);
+            
+            return View(model == null ? new List<Expense>() : model );
         }
         
         public ActionResult Create()
@@ -82,7 +83,7 @@ namespace ExpenseManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Amount,Description,ExpenseDate")] Expense expense)
+        public ActionResult Edit([Bind(Include = "ID,Amount,Description,ExpenseDate")] Expense expense)
         {
             if (ModelState.IsValid)
             {
