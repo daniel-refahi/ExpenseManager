@@ -120,5 +120,17 @@ namespace ExpenseManager.Controllers
             return RedirectToAction("Index");
         }
 
+        [ChildActionOnly]
+        [ActionName("_ExpenseList")]
+        public PartialViewResult ExpenseList(int id)
+        {
+            var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
+                                                       id,
+                                                       DateTime.Now.AddYears(-100), 
+                                                       DateTime.Now.AddYears(100));
+
+            return PartialView(model == null ? new List<Expense>() : model);
+        }
+
     }
 }

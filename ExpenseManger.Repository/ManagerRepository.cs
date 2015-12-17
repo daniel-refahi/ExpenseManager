@@ -57,9 +57,12 @@ namespace ExpenseManger.Repository
                 try
                 {
                     Expense updatedExpense = GetExpense(expense.ID);
-                        updatedExpense.ExpenseDate = expense.ExpenseDate;
-                        updatedExpense.Description = expense.Description;
-                        updatedExpense.Amount = expense.Amount;
+                    if (updatedExpense == null)
+                        return new OperationStatus { Status = false, Message = "Expense record doesn't exist." };
+
+                    updatedExpense.ExpenseDate = expense.ExpenseDate;
+                    updatedExpense.Description = expense.Description;
+                    updatedExpense.Amount = expense.Amount;
 
                     DataContext.Entry(updatedExpense).State = System.Data.Entity.EntityState.Modified;
                     DataContext.SaveChanges();
@@ -198,10 +201,17 @@ namespace ExpenseManger.Repository
         public OperationStatus UpdateCategory(Category category)
         {
             using (DataContext)
-            {
-                DataContext.Entry(category).State = System.Data.Entity.EntityState.Modified;
+            {                
                 try
                 {
+                    Category updatedCategory = GetCategory(category.ID);
+                    if (updatedCategory == null)
+                        return new OperationStatus { Status = false, Message = "Category dosn't exist." };
+
+                    updatedCategory.Name = category.Name;
+                    updatedCategory.Plan = category.Plan;
+
+                    DataContext.Entry(updatedCategory).State = System.Data.Entity.EntityState.Modified;
                     DataContext.SaveChanges();
                     return new OperationStatus { Status = true };
                 }
@@ -228,12 +238,12 @@ namespace ExpenseManger.Repository
                                         Plan = c.Plan,
                                         TotalExpense = DataContext.Expenses
                                             .Where(e => e.Category.ID == c.ID)
-                                            .Sum(e => e.Amount)
+                                            .Sum(e=> e.Amount)
                                     })
                                 .ToList();
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return null;
             }

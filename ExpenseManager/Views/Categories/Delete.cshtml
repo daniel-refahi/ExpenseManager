@@ -27,19 +27,11 @@
             @Html.DisplayFor(model => model.Plan)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User)
-        </dd>
-
     </dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()
-
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
             @Html.ActionLink("Back to List", "Index")

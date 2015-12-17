@@ -26,15 +26,10 @@
             @Html.DisplayFor(model => model.Plan)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User)
-        </dd>
-
     </dl>
+
+    @Html.Action("_ExpenseList", "Expenses", new { id = Model.ID })
+    
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
