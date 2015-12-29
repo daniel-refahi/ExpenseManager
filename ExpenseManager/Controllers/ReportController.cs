@@ -29,6 +29,8 @@ namespace ExpenseManager.Controllers
         {
             var result = _ManagerRepository.GetCategoriesNames
                     (User.Identity.GetUserId()).Values.ToList();
+
+
             return Json(new { status = "Success", message = result }, JsonRequestBehavior.AllowGet);
 
         }

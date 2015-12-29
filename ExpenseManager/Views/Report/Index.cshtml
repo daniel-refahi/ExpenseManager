@@ -4,30 +4,22 @@
 }
 
 <button onclick="call()">Call back</button>
+<button onclick="call2()">Call back</button>
+
 <div id="container" style="height: 400px"></div>
 
 @section scripts
 {
     @Scripts.Render("~/bundles/highChart")
+    @Scripts.Render("~/bundles/remoteCalls")
     <script>
 
-        var MyAppUrlSettings = {
-            MyUsefulUrl: '@Url.Action("GetCategories", "Report")'
-        }
-
         function call() {
-            var searchVal = 'test';
-            $.ajax({
-                type: "GET",
-                url: MyAppUrlSettings.MyUsefulUrl,
-                data: 'searchVal='+ searchVal,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                success: function (data) {
-                },
-                error: function (data) {
-                },
-             });
+            RemoteCalls.Report_GetCategories(getCategory_callBack);
+        };
+
+        function getCategory_callBack(data) {
+            
         }
 
         $(function () {
