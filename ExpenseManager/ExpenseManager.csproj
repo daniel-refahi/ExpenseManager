@@ -198,6 +198,7 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,20 +218,61 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Infrasctructure\RemoteCalls.js" />
+    <Content Include="Scripts\libs\bootstrap.js" />
+    <Content Include="Scripts\libs\bootstrap.min.js" />
     <None Include="Properties\PublishProfiles\ExpenseManager.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\libs\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\adapters\standalone-framework.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\adapters\standalone-framework.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts-3d.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts-3d.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts-more.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts-more.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\highcharts.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\boost.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\boost.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\broken-axis.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\broken-axis.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\canvas-tools.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\canvas-tools.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\data.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\data.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\drilldown.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\drilldown.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\exporting.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\exporting.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\funnel.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\funnel.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\heatmap.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\heatmap.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\no-data-to-display.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\no-data-to-display.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\offline-exporting.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\offline-exporting.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\solid-gauge.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\solid-gauge.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\treemap.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\modules\treemap.src.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\dark-blue.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\dark-green.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\dark-unica.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\gray.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\grid-light.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\grid.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\sand-signika.js" />
+    <Content Include="Scripts\libs\highcharts\4.2.0\themes\skies.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.js" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.js" />
+    <None Include="Scripts\libs\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\libs\jquery.validate.js" />
+    <Content Include="Scripts\libs\jquery.validate.min.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\libs\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\libs\modernizr-2.6.2.js" />
+    <Content Include="Scripts\libs\respond.js" />
+    <Content Include="Scripts\libs\respond.min.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -277,9 +319,11 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Expenses\_ExpenseList.cshtml" />
+    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\PageScripts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -287,7 +331,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Scripts\libs\jquery-1.10.2.min.map" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ExpenseManager.Models\ExpenseManager.Models.csproj">

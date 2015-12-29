@@ -13,19 +13,19 @@ namespace ExpenseManger.Repository
         #region Expense
         List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate);
         List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
-        OperationStatus AddExpense(Expense expense);
+        OperationStatus AddExpense(Expense expense, int categoryId);
         OperationStatus UpdateExpense(Expense expense);
         OperationStatus DeleteExpense(Int64 id);
         Expense GetExpense(Int64 id);    
         #endregion
 
         #region Category
-        List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate);
-        List<string> GetCategoriesNames(string user);
+        List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate);        
+        Dictionary<Int64, string> GetCategoriesNames(string user);
         OperationStatus AddCategory(Category category);
         OperationStatus UpdateCategory(Category category);
         OperationStatus DeleteCategory(Int64 id);
-        Category GetCategory(Int64 id);        
+        Category GetCategory(Int64 id);
         #endregion
 
     }
@@ -33,10 +33,12 @@ namespace ExpenseManger.Repository
     public class ManagerRepository : RepositoryBase<ExpenseManagerContext>, IManagerRepository
     {
         #region Expense
-        public OperationStatus AddExpense(Expense expense)
+        public OperationStatus AddExpense(Expense expense, int categoryId)
         {
+            expense.Category = GetCategory(categoryId);
             using (DataContext)
             {
+                DataContext.Categories.Attach(expense.Category);
                 DataContext.Expenses.Add(expense);
                 try
                 {
@@ -118,9 +120,15 @@ namespace ExpenseManger.Repository
         {
             try
             {
-                return GetExpenses(user, startDate, endDate)
-                    .Where(e => e.Category.ID == categoryId)
-                    .ToList();
+                using (DataContext)
+                {
+                    return DataContext.Expenses
+                            .Where(e => e.ExpenseDate >= startDate &&
+                                        e.ExpenseDate < endDate &&
+                                        e.Category.ID == categoryId &&
+                                        e.User == user)
+                            .ToList();
+                }
             }
             catch (Exception)
             {
@@ -250,7 +258,7 @@ namespace ExpenseManger.Repository
                        
         }
 
-        public List<string> GetCategoriesNames(string user)
+        public Dictionary<Int64,string> GetCategoriesNames(string user)
         {
             try
             {
@@ -258,8 +266,7 @@ namespace ExpenseManger.Repository
                 {
                     return DataContext.Categories
                                 .Where(c => c.User == user)
-                                .Select(c => c.Name)
-                                .ToList();
+                                .ToDictionary(c=> c.ID, c=> c.Name);
                 }
             }
             catch (Exception)

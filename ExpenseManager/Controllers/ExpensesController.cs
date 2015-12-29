@@ -32,17 +32,24 @@ namespace ExpenseManager.Controllers
         
         public ActionResult Create()
         {
+            List<SelectListItem> categories = new List<SelectListItem>();
+            foreach (var record in _ManagerRepository.GetCategoriesNames(User.Identity.GetUserId()))
+            {
+                categories.Add(new SelectListItem() { Text = record.Value, Value = record.Key.ToString()});
+            }
+            ViewBag.Category = categories;
+
             return View();
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Amount,Description,ExpenseDate")] Expense expense)
-        {
+        public ActionResult Create([Bind(Include = "Amount,Description,ExpenseDate")] Expense expense, int category)        
+        {            
             expense.User = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                OperationStatus opt = _ManagerRepository.AddExpense(expense);
+                OperationStatus opt = _ManagerRepository.AddExpense(expense, category);
                 if (!opt.Status)
                 {
                     ModelState.AddModelError("", opt.Message);
