@@ -14,10 +14,11 @@ namespace ExpenseManager
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/libs/jquery.validate*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/highChart").Include(
+            bundles.Add(new ScriptBundle("~/bundles/chart").Include(
                         "~/Scripts/libs/highcharts/4.2.0/highcharts.js",
                         "~/Scripts/libs/highcharts/4.2.0/highcharts-3d.js",
-                        "~/Scripts/libs/highcharts/4.2.0/modules/exporting.js"
+                        "~/Scripts/libs/highcharts/4.2.0/modules/exporting.js",
+                        "~/Scripts/Infrasctructure/ChartHandler.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/remoteCalls").Include(
