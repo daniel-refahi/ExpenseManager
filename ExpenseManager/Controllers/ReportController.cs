@@ -21,16 +21,23 @@ namespace ExpenseManager.Controllers
 
         public ActionResult Index()
         {
+            List<SelectListItem> categories = new List<SelectListItem>();
+            foreach (var record in _ManagerRepository.GetCategoriesNames(User.Identity.GetUserId()))
+            {
+                categories.Add(new SelectListItem() { Text = record.Value, Value = record.Key.ToString() });
+            }
+            ViewBag.Category = categories;                                   
+
             ReportIndexViewModel m = new ReportIndexViewModel();
             m.Test = "this is my test";
             return View(m);
         }
 
         [HttpGet]
-        public JsonResult GetCategories(string searchVal)
+        public JsonResult GetCategoryReport(string category)
         {
-            var result = _ManagerRepository.GetCategoriesNames
-                            (User.Identity.GetUserId()).Values.ToList();
+            var result = _ManagerRepository
+                            .GetReport(category,User.Identity.GetUserId());
 
 
             return Json(new { status = "Success", message = result }, JsonRequestBehavior.AllowGet);

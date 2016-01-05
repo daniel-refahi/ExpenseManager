@@ -204,6 +204,10 @@
     </Compile>
     <Compile Include="InfraStructure\CutomAttributes.cs" />
     <Compile Include="InfraStructure\Helpers.cs" />
+    <Compile Include="Migrations\201601050614599_tempName.cs" />
+    <Compile Include="Migrations\201601050614599_tempName.Designer.cs">
+      <DependentUpon>201601050614599_tempName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -348,6 +352,11 @@
       <Project>{a6b9f0a3-c736-4681-a983-e5aeeaa9e70f}</Project>
       <Name>ExpenseManger.Repository</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201601050614599_tempName.resx">
+      <DependentUpon>201601050614599_tempName.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -167,3 +167,5 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Configuration.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.Mvc.xml
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\bin\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.tempName.resources
+C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csproj.GenerateResource.Cache

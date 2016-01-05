@@ -26,6 +26,7 @@ namespace ExpenseManger.Repository
         OperationStatus UpdateCategory(Category category);
         OperationStatus DeleteCategory(Int64 id);
         Category GetCategory(Int64 id);
+        CategoryReport GetReport(string category, string user);
         #endregion
 
     }
@@ -285,6 +286,32 @@ namespace ExpenseManger.Repository
                     return DataContext.Categories.Find(id);
                 }
                     
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public CategoryReport GetReport(string category, string user)
+        {
+            try
+            {
+                using (DataContext)
+                {
+                    var temp = from e in DataContext.Expenses
+                               where e.Category.Name == category
+                               orderby e.ExpenseDate
+                               group e by new { e.ExpenseDate.Month } into g
+                               select new 
+                               {
+                                   CategoryName = category,
+                                   TotalExpense = g.Sum(e => e.Amount),
+                                   Plan = g.Select(e => e.Category.Plan),
+                                   Month = g.Select(e => e.ExpenseDate.Month).FirstOrDefault()
+                               };
+                    return null;
+                }
             }
             catch (Exception)
             {

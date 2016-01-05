@@ -1,10 +1,10 @@
 ﻿var RemoteCalls = function () {
     
-    Report_GetCategories = function (callBack) {        
+    Report_GetCategoryReport = function (callBack) {
 
         $.ajax({
             type: "GET",
-            url: AppURLs.RemoteActions.Report_GetCategories,
+            url: AppURLs.RemoteActions.Report_GetCategoryReport,
             data: '',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
@@ -18,7 +18,7 @@
     };
 
     return {
-        Report_GetCategories: Report_GetCategories
+        Report_GetCategoryReport: Report_GetCategoryReport
     };
 
 }();

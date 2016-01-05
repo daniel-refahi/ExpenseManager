@@ -31,3 +31,13 @@ textarea {
     position: relative;
     top: 4px;
 }
+
+select {
+    border: 1px solid #111;
+    background: #BDBDBD;
+    width: 150px;
+    padding: 5px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    height: 34px;
+}

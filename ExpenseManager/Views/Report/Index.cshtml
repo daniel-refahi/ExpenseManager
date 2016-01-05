@@ -4,15 +4,8 @@
 <div class="container">
     <div class="well">
         <div class="col-sm-6">
-            Categories
-            <div id="categoiesDropdown" class="dropdown">
-                <div id="categoriesDropdownBtn" class="custom-dropdown-button btn-default dropdown-toggle" data-toggle="dropdown">
-                    Select a category
-                    <span class="caret"></span>
-                </div>
-                <ul class="dropdown-menu">                    
-                </ul>
-            </div>
+            Category
+            @Html.DropDownList("Category")
         </div>
     </div>
 </div>
@@ -22,9 +15,9 @@
     @Scripts.Render("~/bundles/chart")
     @Scripts.Render("~/bundles/remoteCalls")
 
-    <script id="Index.js" src="~/Scripts/PageScripts/Report/Index.js"
+    @*<script id="Index.js" src="~/Scripts/PageScripts/Report/Index.js"
             data-Test="@Model.Test">
-    </script>
+    </script>*@
 
 }
 

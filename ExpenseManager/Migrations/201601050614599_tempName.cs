@@ -1,9 +1,9 @@
-namespace ExpenseManger.Repository.Migrations
+namespace ExpenseManager.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class updatecategory : DbMigration
+    public partial class tempName : DbMigration
     {
         public override void Up()
         {

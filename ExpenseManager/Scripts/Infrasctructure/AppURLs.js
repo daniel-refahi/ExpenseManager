@@ -2,7 +2,7 @@
 var AppURLs = function () {
 
     var RemoteActions = {
-        Report_GetCategories: '/Report/GetCategories'
+        Report_GetCategoryReport: '/Report/GetCategoryReport'
     };
 
     return {
