@@ -2,6 +2,7 @@
 using ExpenseManger.Model.HelperModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -299,18 +300,30 @@ namespace ExpenseManger.Repository
             {
                 using (DataContext)
                 {
-                    var temp = from e in DataContext.Expenses
-                               where e.Category.Name == category
-                               orderby e.ExpenseDate
-                               group e by new { e.ExpenseDate.Month } into g
-                               select new 
-                               {
-                                   CategoryName = category,
-                                   TotalExpense = g.Sum(e => e.Amount),
-                                   Plan = g.Select(e => e.Category.Plan),
-                                   Month = g.Select(e => e.ExpenseDate.Month).FirstOrDefault()
-                               };
-                    return null;
+                    
+                    var groupResult =  from e in DataContext.Expenses
+                                       where e.Category.Name == category
+                                       orderby e.ExpenseDate
+                                       group e by new { e.ExpenseDate.Month } into g
+                                       select new
+                                       {
+                                           CategoryName = category,
+                                           TotalExpense = g.Sum(e => e.Amount),
+                                           Plan = g.FirstOrDefault().Category.Plan,
+                                           Month = g.FirstOrDefault().ExpenseDate.Month
+                                       };
+                    CategoryReport report = new CategoryReport();
+                    report.CategoryName = category;
+                    report.ExpenseMap = new Dictionary<string, double>();
+                    report.PlanMap = new Dictionary<string, double>();
+
+                    foreach (var item in groupResult)
+                    {
+                        string month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month);
+                        report.ExpenseMap.Add(month, item.TotalExpense);
+                        report.PlanMap.Add(month, item.Plan);
+                    }
+                    return report;
                 }
             }
             catch (Exception)

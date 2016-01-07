@@ -19,21 +19,21 @@ namespace ExpenseManger.Repository.Migrations
             {
                 Name = "Rent",
                 Plan = 500,
-                User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
             };
 
             Category house = new Category()
             {
                 Name = "House",
                 Plan = 1200,
-                User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
             };
 
             Category car = new Category()
             {
                 Name = "Car",
                 Plan = 250,
-                User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
             };
 
             context.Categories.AddOrUpdate(rent);
@@ -48,7 +48,7 @@ namespace ExpenseManger.Repository.Migrations
                     Category = rent,
                     Description = "Rent expense number " + counter,
                     ExpenseDate = DateTime.Now.AddMonths(-counter),
-                    User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                    User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
                 };
 
                 Expense houseExpsnse = new Expense()
@@ -57,7 +57,7 @@ namespace ExpenseManger.Repository.Migrations
                     Category = house,
                     Description = "House expense number " + counter,
                     ExpenseDate = DateTime.Now.AddMonths(-counter),
-                    User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                    User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
                 };
 
                 Expense carExpsnse = new Expense()
@@ -66,7 +66,7 @@ namespace ExpenseManger.Repository.Migrations
                     Category = car,
                     Description = "Car expense number " + counter,
                     ExpenseDate = DateTime.Now.AddMonths(-counter),
-                    User = "f887ffcc - c58f - 460f - 9952 - fa2d089af26e"
+                    User = "f887ffcc-c58f-460f-9952-fa2d089af26e"
                 };
 
                 context.Expenses.AddOrUpdate(rentExpsnse);
