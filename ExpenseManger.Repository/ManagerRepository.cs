@@ -319,7 +319,7 @@ namespace ExpenseManger.Repository
 
                     foreach (var item in groupResult)
                     {
-                        string month = CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month);
+                        string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(item.Month);
                         report.ExpenseMap.Add(month, item.TotalExpense);
                         report.PlanMap.Add(month, item.Plan);
                     }

@@ -2,12 +2,17 @@
 <br/>
 
 <div class="container">
-    <div class="well">
+    <div class="well row">
         <div class="col-sm-6">
             Category
-            @Html.DropDownList("Category")
+            @Html.DropDownList("Category", "")
+        </div>
+        <div class="col-sm-6">
         </div>
     </div>
+
+    <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
 </div>
 
 @section scripts
