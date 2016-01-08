@@ -15,14 +15,7 @@ namespace ExpenseManager.Controllers
             return View();
         }
 
-        [AllowAnonymous]
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
+        
         [AppAuthorize("FullAccessProfile")]
         public ActionResult Contact()
         {
