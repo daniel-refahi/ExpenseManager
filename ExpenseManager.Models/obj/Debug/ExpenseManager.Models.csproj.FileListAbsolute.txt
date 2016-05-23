@@ -8,3 +8,8 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager.Models\bin\Debug\Expense
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.pdb
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.csprojResolveAssemblyReference.cache
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\ExpenseManager.Models.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\ExpenseManager.Models.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.csprojResolveAssemblyReference.cache
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.pdb

@@ -22,3 +22,15 @@ C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\bin\Debug\Enti
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csprojResolveAssemblyReference.cache
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.dll
 C:\Users\Daniel\Documents\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.dll.config
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManger.Repository.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\ExpenseManager.Models.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.xml
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csprojResolveAssemblyReference.cache
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb

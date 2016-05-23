@@ -136,6 +136,20 @@ namespace ExpenseManger.Repository
             return opStatus;
         }
 
+        protected virtual OperationStatus Add<T>(T record) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            try
+            {
+                DataContext.Set<T>().Add(record);
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error adding {typeof(T)}.", ex);
+            }
+            return opStatus;
+        }
+
         protected virtual OperationStatus Save<T>(T entity) where T : class
         {
             OperationStatus opStatus = new OperationStatus { Status = true };

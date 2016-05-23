@@ -162,25 +162,22 @@ namespace ExpenseManger.Repository
 
         public OperationStatus AddCategory(Category category)
         {
-            using (DataContext)
+            // category name must be unique for each user.
+            var currentCategory = GetList<Category>()
+                                     .Where(c => c.Name == category.Name &&
+                                            c.User == category.User);
+            if (currentCategory.Count() != 0)
+                return OperationStatus.CreateFromUserException("Category already exists.");
+            Add(category);
+
+            try
             {
-                // category name must be unique for each user.
-                var currentCategory = DataContext.Categories
-                                         .Where(c => c.Name == category.Name &&
-                                                c.User == category.User);
-                if (currentCategory.Count() != 0)
-                    return OperationStatus.CreateFromUserException("Category already exists.");
-                
-                DataContext.Categories.Add(category);
-                try
-                {
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on adding category.", ex);
-                }
+                DataContext.SaveChanges();
+                return new OperationStatus { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on adding category.", ex);
             }
         }
 
