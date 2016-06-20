@@ -172,7 +172,7 @@ namespace ExpenseManger.Repository
 
             try
             {
-                DataContext.SaveChanges();
+                Save();
                 return new OperationStatus { Status = true };
             }
             catch (Exception ex)
@@ -183,50 +183,38 @@ namespace ExpenseManger.Repository
 
         public OperationStatus DeleteCategory(Int64 id)
         {
-            using (DataContext)
+            try
             {
-                try
-                {
-                    // deleting all expenses in this category first.
-                    DataContext.Expenses.RemoveRange(
-                        DataContext.Expenses.Where(e=> e.Category.ID == id));
-
-                    var category = DataContext.Categories
-                                                  .Where(c => c.ID == id)
-                                                  .FirstOrDefault();
-
-                    DataContext.Entry(category).State = System.Data.Entity.EntityState.Deleted;
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on deleting category.", ex);
-                }
+                // deleting all expenses in this category first.                
+                Delete<Expense>(e => e.Category.ID == id);
+                Delete<Category>(c => c.ID == id);
+                Save();
+                return new OperationStatus { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on deleting category.", ex);
             }
         }
 
         public OperationStatus UpdateCategory(Category category)
         {
-            using (DataContext)
-            {                
-                try
-                {
-                    Category updatedCategory = GetCategory(category.ID);
-                    if (updatedCategory == null)
-                        return new OperationStatus { Status = false, Message = "Category dosn't exist." };
+            try
+            {
+                Category updatedCategory = GetCategory(category.ID);
+                if (updatedCategory == null)
+                    return new OperationStatus { Status = false, Message = "Category dosn't exist." };
 
-                    updatedCategory.Name = category.Name;
-                    updatedCategory.Plan = category.Plan;
+                updatedCategory.Name = category.Name;
+                updatedCategory.Plan = category.Plan;
 
-                    DataContext.Entry(updatedCategory).State = System.Data.Entity.EntityState.Modified;
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on updating category.", ex);
-                }
+                DataContext.Entry(updatedCategory).State = System.Data.Entity.EntityState.Modified;
+                DataContext.SaveChanges();
+                return new OperationStatus { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on updating category.", ex);
             }
         }
 

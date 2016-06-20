@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -51,10 +52,7 @@ namespace ExpenseManger.Repository
         {
             if (predicate != null)
             {
-                using (DataContext)
-                {
-                    return DataContext.Set<T>().Where(predicate).SingleOrDefault();
-                }
+                return DataContext.Set<T>().Where(predicate).SingleOrDefault();
             }
             else
             {
@@ -150,7 +148,87 @@ namespace ExpenseManger.Repository
             return opStatus;
         }
 
-        protected virtual OperationStatus Save<T>(T entity) where T : class
+        protected virtual OperationStatus Add<T>(List<T> records) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            try
+            {
+                foreach (var record in records)
+                {
+                    DataContext.Set<T>().Add(record);
+                }
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error adding {typeof(T)}.", ex);
+            }
+            return opStatus;
+        }
+
+        protected virtual OperationStatus Delete<T>(T record) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            try
+            {
+                DataContext.Set<T>().Remove(record);
+                DataContext.Entry(record).State = EntityState.Deleted;
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error Delete {typeof(T)}.", ex);
+            }
+            return opStatus;
+        }
+
+        protected virtual OperationStatus Delete<T>(Expression<Func<T, bool>> predicate) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            try
+            {
+                DataContext.Set<T>().RemoveRange(DataContext.Set<T>().Where(predicate));
+                DataContext.Entry(DataContext.Set<T>().Where(predicate).ToList()).State = EntityState.Deleted;
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error Delete {typeof(T)}.", ex);
+            }
+            return opStatus;
+        }
+
+        protected virtual OperationStatus DeleteRange<T>(List<T> records) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            try
+            {
+                DataContext.Set<T>().RemoveRange(records);
+                DataContext.Entry(records).State = EntityState.Deleted;
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error Delete {typeof(T)}.", ex);
+            }
+            return opStatus;
+        }
+
+        protected virtual OperationStatus Update<T>(object ID, T newRecord) where T : class
+        {
+            OperationStatus opStatus = new OperationStatus { Status = true };
+            //try
+            //{
+            //    Get<T>(Category).
+            //    foreach (PropertyInfo propertyInfo in oldRecord.GetType().GetProperties())
+            //    {
+                    
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    opStatus = OperationStatus.CreateFromSystemException($"Error adding {typeof(T)}.", ex);
+            //}
+            return opStatus;
+        }
+
+        protected virtual OperationStatus Save()
         {
             OperationStatus opStatus = new OperationStatus { Status = true };
 
@@ -161,7 +239,7 @@ namespace ExpenseManger.Repository
             }
             catch (Exception exp)
             {
-                opStatus = OperationStatus.CreateFromSystemException("Error saving " + typeof(T) + ".", exp);
+                opStatus = OperationStatus.CreateFromSystemException("Error saving.", exp);
             }
 
             return opStatus;
