@@ -204,9 +204,9 @@
     </Compile>
     <Compile Include="InfraStructure\CutomAttributes.cs" />
     <Compile Include="InfraStructure\Helpers.cs" />
-    <Compile Include="Migrations\201601050614599_tempName.cs" />
-    <Compile Include="Migrations\201601050614599_tempName.Designer.cs">
-      <DependentUpon>201601050614599_tempName.cs</DependentUpon>
+    <Compile Include="Migrations\201607010333347_InitialModel.cs" />
+    <Compile Include="Migrations\201607010333347_InitialModel.Designer.cs">
+      <DependentUpon>201607010333347_InitialModel.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -352,8 +352,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601050614599_tempName.resx">
-      <DependentUpon>201601050614599_tempName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607010333347_InitialModel.resx">
+      <DependentUpon>201607010333347_InitialModel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

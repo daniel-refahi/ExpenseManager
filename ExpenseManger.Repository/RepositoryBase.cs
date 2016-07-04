@@ -5,8 +5,6 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpenseManger.Repository
 {
@@ -60,6 +58,19 @@ namespace ExpenseManger.Repository
             }
         }
 
+        protected virtual IQueryable<T> GetList<T>() where T : class
+        {
+            try
+            {
+                return DataContext.Set<T>();
+            }
+            catch (Exception ex)
+            {
+                //Log error
+            }
+            return null;
+        }
+
         protected virtual IQueryable<T> GetList<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             try
@@ -105,20 +116,7 @@ namespace ExpenseManger.Repository
             }
             return null;
         }
-
-        protected virtual IQueryable<T> GetList<T>() where T : class
-        {
-            try
-            {
-                return DataContext.Set<T>();
-            }
-            catch (Exception ex)
-            {
-                //Log error
-            }
-            return null;
-        }
-
+        
         protected OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters)
         {
             var opStatus = new OperationStatus { Status = true };
@@ -210,21 +208,21 @@ namespace ExpenseManger.Repository
             return opStatus;
         }
 
-        protected virtual OperationStatus Update<T>(object ID, T newRecord) where T : class
+        protected virtual OperationStatus Update<T>(T oldRecord, T newRecord) where T : class
         {
             OperationStatus opStatus = new OperationStatus { Status = true };
-            //try
-            //{
-            //    Get<T>(Category).
-            //    foreach (PropertyInfo propertyInfo in oldRecord.GetType().GetProperties())
-            //    {
-                    
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    opStatus = OperationStatus.CreateFromSystemException($"Error adding {typeof(T)}.", ex);
-            //}
+            try
+            {
+                foreach (PropertyInfo propertyInfo in oldRecord.GetType().GetProperties())
+                {
+                    oldRecord.GetType().GetProperty(propertyInfo.Name).SetValue(oldRecord, propertyInfo.GetValue(newRecord));
+                }
+                DataContext.Entry(oldRecord).State = EntityState.Modified;
+            }
+            catch (Exception ex)
+            {
+                opStatus = OperationStatus.CreateFromSystemException($"Error adding {typeof(T)}.", ex);
+            }
             return opStatus;
         }
 

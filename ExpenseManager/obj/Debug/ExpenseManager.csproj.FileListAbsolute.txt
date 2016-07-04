@@ -252,7 +252,7 @@ C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Microso
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csprojResolveAssemblyReference.cache
-C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.tempName.resources
-C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csproj.GenerateResource.Cache
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.dll
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.InitialModel.resources
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csproj.GenerateResource.Cache
