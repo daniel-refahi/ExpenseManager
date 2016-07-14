@@ -198,15 +198,14 @@
     <Compile Include="Controllers\ExpensesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="InfraStructure\CutomAttributes.cs" />
     <Compile Include="InfraStructure\Helpers.cs" />
-    <Compile Include="Migrations\201607010333347_InitialModel.cs" />
-    <Compile Include="Migrations\201607010333347_InitialModel.Designer.cs">
-      <DependentUpon>201607010333347_InitialModel.cs</DependentUpon>
+    <Compile Include="Migrations\201607140322355_initDatabase.cs" />
+    <Compile Include="Migrations\201607140322355_initDatabase.Designer.cs">
+      <DependentUpon>201607140322355_initDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -326,7 +325,6 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Expenses\_ExpenseList.cshtml" />
-    <Content Include="Views\Report\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -352,8 +350,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201607010333347_InitialModel.resx">
-      <DependentUpon>201607010333347_InitialModel.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201607140322355_initDatabase.resx">
+      <DependentUpon>201607140322355_initDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

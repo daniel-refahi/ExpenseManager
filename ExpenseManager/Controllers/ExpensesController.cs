@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using ExpenseManager.Models;
+﻿using ExpenseManager.Models;
 using ExpenseManger.Repository;
 using Microsoft.AspNet.Identity;
-using ExpenseManger.Model.HelperModels;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Mvc;
 
 namespace ExpenseManager.Controllers
-{   
+{
     public class ExpensesController : Controller
     {
         IManagerRepository _ManagerRepository;
@@ -44,12 +39,13 @@ namespace ExpenseManager.Controllers
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Amount,Description,ExpenseDate")] Expense expense, int category)        
+        public ActionResult Create(
+            [Bind(Include = "Amount,Description,ExpenseDate,CategoryID")] Expense expense)        
         {            
             expense.User = User.Identity.GetUserId();
             if (ModelState.IsValid)
             {
-                OperationStatus opt = _ManagerRepository.AddExpense(expense, category);
+                OperationStatus opt = _ManagerRepository.AddExpense(expense);
                 if (!opt.Status)
                 {
                     ModelState.AddModelError("", opt.Message);

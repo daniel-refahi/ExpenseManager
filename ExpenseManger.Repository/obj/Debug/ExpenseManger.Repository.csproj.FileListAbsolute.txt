@@ -34,3 +34,7 @@ C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\b
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csprojResolveAssemblyReference.cache
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.dll
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.Migrations.initDatabase.resources
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.csproj.GenerateResource.Cache
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.Migrations.updateCategoryId.resources
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManger.Repository\obj\Debug\ExpenseManger.Repository.Migrations.updateCategoryNameUnique.resources

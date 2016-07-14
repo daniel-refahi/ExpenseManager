@@ -13,3 +13,8 @@ C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.csprojResolveAssemblyReference.cache
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.dll
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\obj\Debug\ExpenseManager.Models.pdb
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\ExpenseManager.Models.dll.config
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\EntityFramework.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\EntityFramework.xml
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager.Models\bin\Debug\EntityFramework.SqlServer.xml

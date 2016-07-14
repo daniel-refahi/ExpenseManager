@@ -254,5 +254,5 @@ C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Microso
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csprojResolveAssemblyReference.cache
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.dll
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.pdb
-C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.InitialModel.resources
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.initDatabase.resources
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csproj.GenerateResource.Cache

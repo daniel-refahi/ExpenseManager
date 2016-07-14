@@ -162,8 +162,8 @@ namespace ExpenseManager.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    if(user.IsPremium)
-                        await UserManager.AddToRoleAsync(user.Id, Helpers.FullAccessProfile);
+                    //if(user.IsPremium)
+                    //    await UserManager.AddToRoleAsync(user.Id, Helpers.FullAccessProfile);
 
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     

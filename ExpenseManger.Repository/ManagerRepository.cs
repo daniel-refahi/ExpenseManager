@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExpenseManger.Repository
 {
@@ -15,7 +13,7 @@ namespace ExpenseManger.Repository
         #region Expense
         List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate);
         List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
-        OperationStatus AddExpense(Expense expense, int categoryId);
+        OperationStatus AddExpense(Expense expense);
         OperationStatus UpdateExpense(Expense expense);
         OperationStatus DeleteExpense(Int64 id);
         Expense GetExpense(Int64 id);    
@@ -36,22 +34,18 @@ namespace ExpenseManger.Repository
     public class ManagerRepository : RepositoryBase<ExpenseManagerContext>, IManagerRepository
     {
         #region Expense
-        public OperationStatus AddExpense(Expense expense, int categoryId)
+        public OperationStatus AddExpense(Expense expense)
         {
-            expense.Category = GetCategory(categoryId);
-            using (DataContext)
+
+            try
             {
-                DataContext.Categories.Attach(expense.Category);
-                DataContext.Expenses.Add(expense);
-                try
-                {
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on adding expense.", ex);
-                }
+                Add(expense);
+                DataContext.SaveChanges();
+                return new OperationStatus { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on adding expense.", ex);
             }
         }
 
@@ -162,18 +156,18 @@ namespace ExpenseManger.Repository
 
         public OperationStatus AddCategory(Category category)
         {
-            // category name must be unique for each user.
-            var currentCategory = GetList<Category>()
-                                     .Where(c => c.Name == category.Name &&
-                                            c.User == category.User);
-            if (currentCategory.Count() != 0)
-                return OperationStatus.CreateFromUserException("Category already exists.");
-            Add(category);
-
             try
             {
-                Save();
-                return new OperationStatus { Status = true };
+                Add(category);
+                OperationStatus os =  Save();
+                if (os.Message.Contains("duplicate key"))
+                    return new OperationStatus()
+                    {
+                        Message = "Category name already exists in the system.",
+                        Status = false
+                    };
+                else
+                    return os;
             }
             catch (Exception ex)
             {

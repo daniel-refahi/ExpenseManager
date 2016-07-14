@@ -232,12 +232,11 @@ namespace ExpenseManger.Repository
 
             try
             {
-                //Custom attaching/adding of entity could be done here
                 opStatus.Status = DataContext.SaveChanges() > 0;
             }
             catch (Exception exp)
             {
-                opStatus = OperationStatus.CreateFromSystemException("Error saving.", exp);
+                opStatus = OperationStatus.CreateFromSystemException(exp.ToString(), exp);
             }
 
             return opStatus;
