@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using ExpenseManager.Models;
+﻿using ExpenseManager.Models;
+using ExpenseManger.Model.HelperModels;
 using ExpenseManger.Repository;
 using Microsoft.AspNet.Identity;
-using ExpenseManger.Model.HelperModels;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Mvc;
 
 namespace ExpenseManager.Controllers
 {

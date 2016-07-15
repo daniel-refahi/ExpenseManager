@@ -2,7 +2,6 @@
 using ExpenseManger.Model.HelperModels;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace ExpenseManger.Repository
@@ -11,22 +10,21 @@ namespace ExpenseManger.Repository
     public interface IManagerRepository
     {
         #region Expense
-        List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate);
-        List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
+        IEnumerable<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate);
+        IEnumerable<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
         OperationStatus AddExpense(Expense expense);
         OperationStatus UpdateExpense(Expense expense);
-        OperationStatus DeleteExpense(Int64 id);
-        Expense GetExpense(Int64 id);    
+        OperationStatus DeleteExpense(long id);
+        Expense GetExpense(long id);
         #endregion
 
         #region Category
-        List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate);        
-        Dictionary<Int64, string> GetCategoriesNames(string user);
+        IEnumerable<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate);        
+        Dictionary<long, string> GetCategoriesNames(string user);
         OperationStatus AddCategory(Category category);
         OperationStatus UpdateCategory(Category category);
-        OperationStatus DeleteCategory(Int64 id);
-        Category GetCategory(Int64 id);
-        CategoryReport GetReport(string category, string user);
+        OperationStatus DeleteCategory(long id);
+        Category GetCategory(long id);
         #endregion
 
     }
@@ -40,7 +38,7 @@ namespace ExpenseManger.Repository
             try
             {
                 Add(expense);
-                DataContext.SaveChanges();
+                Save();
                 return new OperationStatus { Status = true };
             }
             catch (Exception ex)
@@ -51,61 +49,48 @@ namespace ExpenseManger.Repository
 
         public OperationStatus UpdateExpense(Expense expense)
         {
-            using (DataContext)
-            {                
-                try
-                {
-                    Expense updatedExpense = GetExpense(expense.ID);
-                    if (updatedExpense == null)
-                        return new OperationStatus { Status = false, Message = "Expense record doesn't exist." };
+            try
+            {
+                Expense updatedExpense = GetExpense(expense.ID);
+                if (updatedExpense == null)
+                    return new OperationStatus { Status = false, Message = "Expense record doesn't exist." };
 
-                    updatedExpense.ExpenseDate = expense.ExpenseDate;
-                    updatedExpense.Description = expense.Description;
-                    updatedExpense.Amount = expense.Amount;
+                updatedExpense.ExpenseDate = expense.ExpenseDate;
+                updatedExpense.Description = expense.Description;
+                updatedExpense.Amount = expense.Amount;
 
-                    DataContext.Entry(updatedExpense).State = System.Data.Entity.EntityState.Modified;
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on updating expense.", ex);
-                }
+                Update(expense, updatedExpense);
+                Save();
+                return new OperationStatus { Status = true };
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on updating expense.", ex);
             }
         }
 
-        public OperationStatus DeleteExpense(Int64 id)
-        {
-            using (DataContext)
-            {                               
-                try
-                {
-                    Expense expense = DataContext.Expenses
-                                         .Where(e => e.ID == id)
-                                         .FirstOrDefault();
-                    DataContext.Entry(expense).State = System.Data.Entity.EntityState.Deleted;
-                    DataContext.SaveChanges();
-                    return new OperationStatus { Status = true };
-                }
-                catch (Exception ex)
-                {
-                    return OperationStatus.CreateFromSystemException("Error on deleting expense.", ex);
-                }
-            }
-        }
-
-        public List<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate)
+        public OperationStatus DeleteExpense(long id)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Expenses
-                            .Where(e => e.ExpenseDate >= startDate &&
-                                        e.ExpenseDate < endDate &&
-                                        e.User == user)
-                            .ToList();
-                }
+                Delete<Expense>(e => e.ID == id);
+                Save();
+                return new OperationStatus { Status = true };
+
+            }
+            catch (Exception ex)
+            {
+                return OperationStatus.CreateFromSystemException("Error on deleting expense.", ex);
+            }
+        }
+
+        public IEnumerable<Expense> GetExpenses(string user, DateTime startDate, DateTime endDate)
+        {
+            try
+            {
+                return GetList<Expense>(e => e.ExpenseDate >= startDate &&
+                                             e.ExpenseDate < endDate &&
+                                             e.User == user);
             }
             catch (Exception)
             {
@@ -113,19 +98,14 @@ namespace ExpenseManger.Repository
             }            
         }
 
-        public List<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate)
+        public IEnumerable<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Expenses
-                            .Where(e => e.ExpenseDate >= startDate &&
-                                        e.ExpenseDate < endDate &&
-                                        e.Category.ID == categoryId &&
-                                        e.User == user)
-                            .ToList();
-                }
+                return GetList<Expense>(e => e.ExpenseDate >= startDate &&
+                                             e.ExpenseDate < endDate &&
+                                             e.Category.ID == categoryId &&
+                                             e.User == user).ToList();
             }
             catch (Exception)
             {
@@ -134,14 +114,11 @@ namespace ExpenseManger.Repository
             
         }
 
-        public Expense GetExpense(Int64 id)
+        public Expense GetExpense(long id)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Expenses.Find(id);
-                }
+                return Get<Expense>(e => e.ID == id);
             }
             catch (Exception)
             {
@@ -160,7 +137,7 @@ namespace ExpenseManger.Repository
             {
                 Add(category);
                 OperationStatus os =  Save();
-                if (os.Message.Contains("duplicate key"))
+                if (os.Message != null && os.Message.Contains("duplicate key"))
                     return new OperationStatus()
                     {
                         Message = "Category name already exists in the system.",
@@ -175,12 +152,13 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public OperationStatus DeleteCategory(Int64 id)
+        public OperationStatus DeleteCategory(long id)
         {
             try
             {
-                // deleting all expenses in this category first.                
+                //we need deleting all expenses in this category first.                
                 Delete<Expense>(e => e.Category.ID == id);
+
                 Delete<Category>(c => c.ID == id);
                 Save();
                 return new OperationStatus { Status = true };
@@ -201,9 +179,8 @@ namespace ExpenseManger.Repository
 
                 updatedCategory.Name = category.Name;
                 updatedCategory.Plan = category.Plan;
-
-                DataContext.Entry(updatedCategory).State = System.Data.Entity.EntityState.Modified;
-                DataContext.SaveChanges();
+                Update(category, updatedCategory);
+                Save();                
                 return new OperationStatus { Status = true };
             }
             catch (Exception ex)
@@ -212,26 +189,34 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public List<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate)
+        public IEnumerable<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Categories
-                                .Where(c => c.User == user)
-                                .Select(c =>
-                                    new CategoryDetail()
-                                    {
-                                        ID = c.ID,
-                                        CategoryName = c.Name,
-                                        Plan = c.Plan,
-                                        TotalExpense = DataContext.Expenses
-                                            .Where(e => e.Category.ID == c.ID)
-                                            .Sum(e=> e.Amount)
-                                    })
-                                .ToList();
-                }
+
+                //var expenses = GetList<Expense>(e => e.User == user);
+                //var result = GetList<Category>(c => c.User == user)
+                //                                        .Select(c =>
+                //                                          new CategoryDetail()
+                //                                          {
+                //                                              ID = c.ID,
+                //                                              CategoryName = c.Name,
+                //                                              Plan = c.Plan,
+                //                                              TotalExpense = expenses.Where(e => e.Category.ID == c.ID).Sum(e => e.Amount)
+                //                                          });
+
+                var result = GetList<Category>(c => c.User == user)
+                                                        .Select(c =>
+                                                          new CategoryDetail()
+                                                          {
+                                                              ID = c.ID,
+                                                              CategoryName = c.Name,
+                                                              Plan = c.Plan,
+                                                              TotalExpense = GetList<Expense>(e => e.Category.ID == c.ID).Sum(e => e.Amount)
+                                                          });
+
+                return result;
+
             }
             catch (Exception ex)
             {
@@ -240,16 +225,11 @@ namespace ExpenseManger.Repository
                        
         }
 
-        public Dictionary<Int64,string> GetCategoriesNames(string user)
+        public Dictionary<long,string> GetCategoriesNames(string user)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Categories
-                                .Where(c => c.User == user)
-                                .ToDictionary(c=> c.ID, c=> c.Name);
-                }
+                return GetList<Category>(c => c.User == user).ToDictionary(c => c.ID, c => c.Name);
             }
             catch (Exception)
             {
@@ -258,14 +238,11 @@ namespace ExpenseManger.Repository
             
         }
         
-        public Category GetCategory(Int64 id)
+        public Category GetCategory(long id)
         {
             try
             {
-                using (DataContext)
-                {
-                    return DataContext.Categories.Find(id);
-                }
+                return Get<Category>(c => c.ID == id);
                     
             }
             catch (Exception)
@@ -273,45 +250,6 @@ namespace ExpenseManger.Repository
                 return null;
             }
         }
-
-        public CategoryReport GetReport(string category, string user)
-        {
-            try
-            {
-                using (DataContext)
-                {
-                    
-                    var groupResult =  from e in DataContext.Expenses
-                                       where e.Category.Name == category
-                                       orderby e.ExpenseDate
-                                       group e by new { e.ExpenseDate.Month } into g
-                                       select new
-                                       {
-                                           CategoryName = category,
-                                           TotalExpense = g.Sum(e => e.Amount),
-                                           Plan = g.FirstOrDefault().Category.Plan,
-                                           Month = g.FirstOrDefault().ExpenseDate.Month
-                                       };
-                    CategoryReport report = new CategoryReport();
-                    report.CategoryName = category;
-                    report.ExpenseMap = new Dictionary<string, double>();
-                    report.PlanMap = new Dictionary<string, double>();
-
-                    foreach (var item in groupResult)
-                    {
-                        string month = CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedMonthName(item.Month);
-                        report.ExpenseMap.Add(month, item.TotalExpense);
-                        report.PlanMap.Add(month, item.Plan);
-                    }
-                    return report;
-                }
-            }
-            catch (Exception)
-            {
-                return null;
-            }
-        }
-
         #endregion
 
     }

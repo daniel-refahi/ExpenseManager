@@ -50,7 +50,7 @@ namespace ExpenseManger.Repository
         {
             if (predicate != null)
             {
-                return DataContext.Set<T>().Where(predicate).SingleOrDefault();
+                return DataContext.Set<T>().Single(predicate);
             }
             else
             {
@@ -58,29 +58,16 @@ namespace ExpenseManger.Repository
             }
         }
 
-        protected virtual IQueryable<T> GetList<T>() where T : class
+        protected virtual List<T> GetList<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             try
             {
-                return DataContext.Set<T>();
-            }
-            catch (Exception ex)
-            {
-                //Log error
-            }
-            return null;
-        }
-
-        protected virtual IQueryable<T> GetList<T>(Expression<Func<T, bool>> predicate) where T : class
-        {
-            try
-            {
-                var coll = DataContext.Set<T>();
+                var result = DataContext.Set<T>();
                 if (predicate != null)
                 {
-                    return coll.Where(predicate);
+                    return result.Where(predicate).ToList();
                 }
-                return coll;
+                return result.ToList();
 
             }
             catch (Exception ex)
@@ -90,46 +77,23 @@ namespace ExpenseManger.Repository
             return null;
         }
 
-        protected virtual IQueryable<T> GetList<T, TKey>(Expression<Func<T, bool>> predicate,
-            Expression<Func<T, TKey>> orderBy) where T : class
+        protected virtual List<T> GetList<T, TKey>(Expression<Func<T, bool>> predicate,Expression<Func<T, TKey>> orderBy) where T : class
         {
             try
             {
-                return GetList(predicate).OrderBy(orderBy);
+                var result = DataContext.Set<T>();
+                if (predicate != null)
+                {
+                    return result.Where(predicate).OrderBy(orderBy).ToList();
+                }
+                return result.ToList();
+
             }
             catch (Exception ex)
             {
                 //Log error
             }
             return null;
-        }
-
-        protected virtual IQueryable<T> GetList<T, TKey>(Expression<Func<T, TKey>> orderBy) where T : class
-        {
-            try
-            {
-                return GetList<T>().OrderBy(orderBy);
-            }
-            catch (Exception ex)
-            {
-                //Log error
-            }
-            return null;
-        }
-        
-        protected OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters)
-        {
-            var opStatus = new OperationStatus { Status = true };
-
-            try
-            {
-                opStatus.RecordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
-            }
-            catch (Exception exp)
-            {
-                OperationStatus.CreateFromSystemException("Error executing store command: ", exp);
-            }
-            return opStatus;
         }
 
         protected virtual OperationStatus Add<T>(T record) where T : class
@@ -239,6 +203,21 @@ namespace ExpenseManger.Repository
                 opStatus = OperationStatus.CreateFromSystemException(exp.ToString(), exp);
             }
 
+            return opStatus;
+        }
+
+        protected OperationStatus ExecuteStoreCommand(string cmdText, params object[] parameters)
+        {
+            var opStatus = new OperationStatus { Status = true };
+
+            try
+            {
+                opStatus.RecordsAffected = DataContext.Database.ExecuteSqlCommand(cmdText, parameters);
+            }
+            catch (Exception exp)
+            {
+                OperationStatus.CreateFromSystemException("Error executing store command: ", exp);
+            }
             return opStatus;
         }
 

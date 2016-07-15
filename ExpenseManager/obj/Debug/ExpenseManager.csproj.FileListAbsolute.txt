@@ -256,3 +256,8 @@ C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\E
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.pdb
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.Migrations.initDatabase.resources
 C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\obj\Debug\ExpenseManager.csproj.GenerateResource.Cache
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Glimpse.Ado.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Glimpse.AspNet.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Glimpse.Core.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Glimpse.EF6.dll
+C:\Users\DanielRefahi\Documents\GitHub\ExpenseManager\ExpenseManager\bin\Glimpse.Mvc5.dll

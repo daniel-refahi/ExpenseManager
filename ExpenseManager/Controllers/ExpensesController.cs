@@ -20,9 +20,9 @@ namespace ExpenseManager.Controllers
         public ActionResult Index()
         {
             var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
-                                      DateTime.Now.AddYears(-100), DateTime.Now.AddYears(100));
+                                                DateTime.Now.AddYears(-100), DateTime.Now.AddYears(100));
             
-            return View(model == null ? new List<Expense>() : model );
+            return View(model == null ? new List<Expense>() : model);
         }
         
         public ActionResult Create()
@@ -127,10 +127,10 @@ namespace ExpenseManager.Controllers
         [ActionName("_ExpenseList")]
         public PartialViewResult ExpenseList(int id)
         {
-            var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
-                                                       id,
-                                                       DateTime.Now.AddYears(-100), 
-                                                       DateTime.Now.AddYears(100));
+            IEnumerable<Expense> model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
+                                                                       id,
+                                                                       DateTime.Now.AddYears(-100), 
+                                                                       DateTime.Now.AddYears(100));
 
             return PartialView(model == null ? new List<Expense>() : model);
         }
