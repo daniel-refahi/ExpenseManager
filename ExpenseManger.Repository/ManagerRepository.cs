@@ -189,22 +189,20 @@ namespace ExpenseManger.Repository
             }
         }
 
+        /// <summary>
+        /// Return Categories with sum of expenses in that category
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="startDate">Start date for summing up the expenses in this category</param>
+        /// <param name="endDate">End date for summing up the expenses in this category</param>
+        /// <returns></returns>
         public IEnumerable<CategoryDetail> GetCategories(string user, DateTime startDate, DateTime endDate)
         {
             try
             {
 
-                //var expenses = GetList<Expense>(e => e.User == user);
-                //var result = GetList<Category>(c => c.User == user)
-                //                                        .Select(c =>
-                //                                          new CategoryDetail()
-                //                                          {
-                //                                              ID = c.ID,
-                //                                              CategoryName = c.Name,
-                //                                              Plan = c.Plan,
-                //                                              TotalExpense = expenses.Where(e => e.Category.ID == c.ID).Sum(e => e.Amount)
-                //                                          });
-
+                // less query but it grabs all the expenses records
+                var expenses = GetList<Expense>(e => e.User == user);
                 var result = GetList<Category>(c => c.User == user)
                                                         .Select(c =>
                                                           new CategoryDetail()
@@ -212,8 +210,19 @@ namespace ExpenseManger.Repository
                                                               ID = c.ID,
                                                               CategoryName = c.Name,
                                                               Plan = c.Plan,
-                                                              TotalExpense = GetList<Expense>(e => e.Category.ID == c.ID).Sum(e => e.Amount)
+                                                              TotalExpense = expenses.Where(e => e.Category.ID == c.ID).Sum(e => e.Amount)
                                                           });
+
+                // more query but it doesn't grab all the expenes records
+                //var result = GetList<Category>(c => c.User == user)
+                //                                        .Select(c =>
+                //                                          new CategoryDetail()
+                //                                          {
+                //                                              ID = c.ID,
+                //                                              CategoryName = c.Name,
+                //                                              Plan = c.Plan,
+                //                                              TotalExpense = GetList<Expense>(e => e.Category.ID == c.ID).Sum(e => e.Amount)
+                //                                          });
 
                 return result;
 
