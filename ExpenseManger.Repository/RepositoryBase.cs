@@ -62,12 +62,15 @@ namespace ExpenseManger.Repository
         {
             try
             {
-                var result = DataContext.Set<T>();
+
                 if (predicate != null)
                 {
-                    return result.Where(predicate).ToList();
+                    return DataContext.Set<T>().Where(predicate).ToList();
                 }
-                return result.ToList();
+                else
+                {
+                    DataContext.Set<T>().ToList();
+                }
 
             }
             catch (Exception ex)
@@ -81,13 +84,14 @@ namespace ExpenseManger.Repository
         {
             try
             {
-                var result = DataContext.Set<T>();
                 if (predicate != null)
                 {
-                    return result.Where(predicate).OrderBy(orderBy).ToList();
+                    return DataContext.Set<T>().Where(predicate).OrderBy(orderBy).ToList();
                 }
-                return result.ToList();
-
+                else
+                {
+                    DataContext.Set<T>().ToList();
+                }
             }
             catch (Exception ex)
             {

@@ -59,9 +59,16 @@ namespace ExpenseManger.Repository
                 updatedExpense.Description = expense.Description;
                 updatedExpense.Amount = expense.Amount;
 
-                Update(expense, updatedExpense);
-                Save();
-                return new OperationStatus { Status = true };
+                if (expense.User == updatedExpense.User)
+                {
+                    Update(expense, updatedExpense);
+                    Save();
+                    return new OperationStatus { Status = true };
+                }
+                else
+                    return new OperationStatus { Status = false, Message = "You are not autorized to access this record!" };
+
+
             }
             catch (Exception ex)
             {
@@ -69,7 +76,7 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public OperationStatus DeleteExpense(long id)
+        public OperationStatus DeleteExpense(long id, string userId)
         {
             try
             {

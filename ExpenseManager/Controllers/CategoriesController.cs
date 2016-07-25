@@ -54,11 +54,13 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Category category = _ManagerRepository.GetCategory((int)id);
             if (category == null)
             {
                 return HttpNotFound();
             }
+
             return View(category);
         }
 

@@ -26,21 +26,14 @@ namespace ExpenseManager.Controllers
         }
         
         public ActionResult Create()
-        {
-            List<SelectListItem> categories = new List<SelectListItem>();
-            foreach (var record in _ManagerRepository.GetCategoriesNames(User.Identity.GetUserId()))
-            {
-                categories.Add(new SelectListItem() { Text = record.Value, Value = record.Key.ToString()});
-            }
-            ViewBag.Category = categories;
-
+        {           
+            ViewBag.CategoryID = GetCategories(User.Identity.GetUserId());
             return View();
         }
         
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(
-            [Bind(Include = "Amount,Description,ExpenseDate,CategoryID")] Expense expense)        
+        public ActionResult Create([Bind(Include = "Amount,Description,ExpenseDate,CategoryID")] Expense expense)        
         {            
             expense.User = User.Identity.GetUserId();
             if (ModelState.IsValid)
@@ -49,10 +42,12 @@ namespace ExpenseManager.Controllers
                 if (!opt.Status)
                 {
                     ModelState.AddModelError("", opt.Message);
+                    ViewBag.CategoryID = GetCategories(User.Identity.GetUserId());
                     return View(expense);
                 }
                 return RedirectToAction("Index");
             }
+            ViewBag.CategoryID = GetCategories(User.Identity.GetUserId());
             return View(expense);
         }
 
@@ -86,7 +81,7 @@ namespace ExpenseManager.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Amount,Description,ExpenseDate")] Expense expense)
+        public ActionResult Edit([Bind(Include = "ID,Amount,Description,ExpenseDate,User")] Expense expense)
         {
             if (ModelState.IsValid)
             {
@@ -133,6 +128,17 @@ namespace ExpenseManager.Controllers
                                                                        DateTime.Now.AddYears(100));
 
             return PartialView(model == null ? new List<Expense>() : model);
+        }
+
+        public List<SelectListItem> GetCategories (string userId)
+        {
+            List<SelectListItem> categories = new List<SelectListItem>();
+            foreach (var record in _ManagerRepository.GetCategoriesNames(userId))
+            {
+                categories.Add(new SelectListItem() { Text = record.Value, Value = record.Key.ToString() });
+            }
+            categories[0].Selected = true;
+            return categories;
         }
 
     }
