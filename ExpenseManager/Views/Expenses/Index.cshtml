@@ -9,6 +9,38 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
+<div class="well">
+    @using (Html.BeginForm("Index", "Expense", FormMethod.Get))
+    {
+        <div class="form-horizontal">
+            
+            <div class="form-group">
+                
+                
+                <div class="col-md-10">
+                    @Html.Label("Start Date: ", new { htmlAttributes = new { @class = "control-label" } })
+                    @Html.Editor( "stratDate" ,new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+
+                <div class="col-md-10">
+                    @Html.Label("End Date: ", new { htmlAttributes = new { @class = "control-label" } })
+                    @Html.Editor("endDate", new { htmlAttributes = new { @class = "form-control", type="date" } })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input type="submit" value="Search" class="btn btn-default" />
+                </div>
+                
+            </div>
+        </div>
+    }
+</div>
+
 <table class="table">
     <tr>
         <th>

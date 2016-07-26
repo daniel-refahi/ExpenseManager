@@ -55,7 +55,7 @@ namespace ExpenseManager.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Category category = _ManagerRepository.GetCategory((int)id);
+            Category category = _ManagerRepository.GetCategory((int)id, User.Identity.GetUserId());
             if (category == null)
             {
                 return HttpNotFound();
@@ -70,7 +70,7 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _ManagerRepository.GetCategory((int)id);
+            Category category = _ManagerRepository.GetCategory((int)id, User.Identity.GetUserId());
             if (category == null)
             {
                 return HttpNotFound();
@@ -84,6 +84,7 @@ namespace ExpenseManager.Controllers
         {
             if (ModelState.IsValid)
             {
+                category.User = User.Identity.GetUserId();
                 OperationStatus opt = _ManagerRepository.UpdateCategory(category);
                 if (!opt.Status)
                 {
@@ -101,7 +102,7 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = _ManagerRepository.GetCategory((int)id);
+            Category category = _ManagerRepository.GetCategory((int)id, User.Identity.GetUserId());
             if (category == null)
             {
                 return HttpNotFound();
@@ -113,7 +114,7 @@ namespace ExpenseManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            OperationStatus opt = _ManagerRepository.DeleteCategory(id);
+            OperationStatus opt = _ManagerRepository.DeleteCategory(id, User.Identity.GetUserId());
             if (!opt.Status)
             {
                 ModelState.AddModelError("", opt.Message);

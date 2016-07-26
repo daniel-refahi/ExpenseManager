@@ -14,8 +14,8 @@ namespace ExpenseManger.Repository
         IEnumerable<Expense> GetExpenses(string user, int categoryId, DateTime startDate, DateTime endDate);
         OperationStatus AddExpense(Expense expense);
         OperationStatus UpdateExpense(Expense expense);
-        OperationStatus DeleteExpense(long id);
-        Expense GetExpense(long id);
+        OperationStatus DeleteExpense(long id, string userId);
+        Expense GetExpense(long id, string userId);
         #endregion
 
         #region Category
@@ -23,8 +23,8 @@ namespace ExpenseManger.Repository
         Dictionary<long, string> GetCategoriesNames(string user);
         OperationStatus AddCategory(Category category);
         OperationStatus UpdateCategory(Category category);
-        OperationStatus DeleteCategory(long id);
-        Category GetCategory(long id);
+        OperationStatus DeleteCategory(long id, string userId);
+        Category GetCategory(long id, string userId);
         #endregion
 
     }
@@ -51,23 +51,17 @@ namespace ExpenseManger.Repository
         {
             try
             {
-                Expense updatedExpense = GetExpense(expense.ID);
+                Expense updatedExpense = GetExpense(expense.ID, expense.User);
                 if (updatedExpense == null)
-                    return new OperationStatus { Status = false, Message = "Expense record doesn't exist." };
+                    return new OperationStatus { Status = false, Message = "Expense record doesn't exist or You are not autorized to access it." };
 
                 updatedExpense.ExpenseDate = expense.ExpenseDate;
                 updatedExpense.Description = expense.Description;
                 updatedExpense.Amount = expense.Amount;
 
-                if (expense.User == updatedExpense.User)
-                {
-                    Update(expense, updatedExpense);
-                    Save();
-                    return new OperationStatus { Status = true };
-                }
-                else
-                    return new OperationStatus { Status = false, Message = "You are not autorized to access this record!" };
-
+                Update(expense, updatedExpense);
+                Save();
+                return new OperationStatus { Status = true };
 
             }
             catch (Exception ex)
@@ -80,6 +74,11 @@ namespace ExpenseManger.Repository
         {
             try
             {
+                Expense expense = Get<Expense>(e => e.ID == id && e.User == userId);
+                // this means the requester is not the owner of the record.
+                if(expense == null)
+                    return new OperationStatus { Status = false, Message = "You are not autorized to access this record!" };
+
                 Delete<Expense>(e => e.ID == id);
                 Save();
                 return new OperationStatus { Status = true };
@@ -121,11 +120,11 @@ namespace ExpenseManger.Repository
             
         }
 
-        public Expense GetExpense(long id)
+        public Expense GetExpense(long id, string userId)
         {
             try
             {
-                return Get<Expense>(e => e.ID == id);
+                return Get<Expense>(e => e.ID == id && e.User == userId);
             }
             catch (Exception)
             {
@@ -159,10 +158,15 @@ namespace ExpenseManger.Repository
             }
         }
 
-        public OperationStatus DeleteCategory(long id)
+        public OperationStatus DeleteCategory(long id, string userId)
         {
             try
             {
+                Category category = Get<Category>(c => c.ID == id && c.User == userId);
+                // this means the requester is not the owner of the record.
+                if (category == null)
+                    return new OperationStatus { Status = false, Message = "You are not autorized to access this record!" };
+
                 //we need deleting all expenses in this category first.                
                 Delete<Expense>(e => e.Category.ID == id);
 
@@ -180,9 +184,9 @@ namespace ExpenseManger.Repository
         {
             try
             {
-                Category updatedCategory = GetCategory(category.ID);
+                Category updatedCategory = GetCategory(category.ID, category.User);
                 if (updatedCategory == null)
-                    return new OperationStatus { Status = false, Message = "Category dosn't exist." };
+                    return new OperationStatus { Status = false, Message = "Category record doesn't exist or You are not autorized to access it." };
 
                 updatedCategory.Name = category.Name;
                 updatedCategory.Plan = category.Plan;
@@ -254,11 +258,11 @@ namespace ExpenseManger.Repository
             
         }
         
-        public Category GetCategory(long id)
+        public Category GetCategory(long id,string userId)
         {
             try
             {
-                return Get<Category>(c => c.ID == id);
+                return Get<Category>(c => c.ID == id && c.User == userId);
                     
             }
             catch (Exception)

@@ -17,10 +17,10 @@ namespace ExpenseManager.Controllers
             _ManagerRepository = managerRepo;
         }
         
-        public ActionResult Index()
+        public ActionResult Index(string startDate = "01/01/2000", string endDate = "01/01/2100")
         {
             var model = _ManagerRepository.GetExpenses(User.Identity.GetUserId(),
-                                                DateTime.Now.AddYears(-100), DateTime.Now.AddYears(100));
+                                                Convert.ToDateTime(startDate), Convert.ToDateTime(endDate));
             
             return View(model == null ? new List<Expense>() : model);
         }
@@ -57,7 +57,7 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = _ManagerRepository.GetExpense((int)id);
+            Expense expense = _ManagerRepository.GetExpense((int)id, User.Identity.GetUserId());
             if (expense == null)
             {
                 return HttpNotFound();
@@ -71,7 +71,7 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = _ManagerRepository.GetExpense((int)id);
+            Expense expense = _ManagerRepository.GetExpense((int)id, User.Identity.GetUserId());
             if (expense == null)
             {
                 return HttpNotFound();
@@ -102,7 +102,7 @@ namespace ExpenseManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Expense expense = _ManagerRepository.GetExpense((int)id);
+            Expense expense = _ManagerRepository.GetExpense((int)id, User.Identity.GetUserId());
             if (expense == null)
             {
                 return HttpNotFound();
@@ -114,7 +114,7 @@ namespace ExpenseManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            _ManagerRepository.DeleteExpense(id);            
+            _ManagerRepository.DeleteExpense(id, User.Identity.GetUserId());            
             return RedirectToAction("Index");
         }
 
