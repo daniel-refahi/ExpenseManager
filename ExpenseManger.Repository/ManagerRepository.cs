@@ -211,7 +211,6 @@ namespace ExpenseManger.Repository
         {
             try
             {
-
                 // less query but it grabs all the expenses records
                 var expenses = GetList<Expense>(e => e.User == user);
                 var result = GetList<Category>(c => c.User == user)

@@ -228,6 +228,10 @@
     <Compile Include="Migrations\201607140322355_initDatabase.Designer.cs">
       <DependentUpon>201607140322355_initDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201607280437380_virtualTest.cs" />
+    <Compile Include="Migrations\201607280437380_virtualTest.Designer.cs">
+      <DependentUpon>201607280437380_virtualTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -373,6 +377,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201607140322355_initDatabase.resx">
       <DependentUpon>201607140322355_initDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201607280437380_virtualTest.resx">
+      <DependentUpon>201607280437380_virtualTest.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

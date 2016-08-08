@@ -16,7 +16,7 @@ namespace ExpenseManager.Models
         public string User { get; set; }
         
         public long CategoryID { get; set; }
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
 
     }
 }

@@ -22,6 +22,6 @@ namespace ExpenseManager.Models
 
         public string User { get; set; }
 
-        public virtual ICollection<Expense> Expenses { get; set; }
+        public ICollection<Expense> Expenses { get; set; }
     }
 }

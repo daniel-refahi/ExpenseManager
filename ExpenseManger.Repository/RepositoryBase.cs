@@ -58,6 +58,18 @@ namespace ExpenseManger.Repository
             }
         }
 
+        protected virtual T Get<T>(Expression<Func<T, bool>> predicate, Expression<Func<T, bool>> include) where T : class
+        {
+            if (predicate != null && include != null)
+            {
+                return DataContext.Set<T>().Include(include).Single(predicate);
+            }
+            else
+            {
+                throw new ApplicationException("Predicate value must be passed to Get<T>.");
+            }
+        }
+
         protected virtual List<T> GetList<T>(Expression<Func<T, bool>> predicate) where T : class
         {
             try
@@ -80,12 +92,61 @@ namespace ExpenseManger.Repository
             return null;
         }
 
+        protected virtual List<T> GetList<T>(Expression<Func<T, bool>> predicate, Expression<Func<T, bool>> include) where T : class
+        {
+            try
+            {
+
+                if (predicate != null) 
+                {
+                    if(include == null)
+                        return DataContext.Set<T>().Where(predicate).ToList();
+
+                    return DataContext.Set<T>().Include(include).Where(predicate).ToList();
+                }
+                else
+                {
+                    DataContext.Set<T>().ToList();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                //Log error
+            }
+            return null;
+        }
+
         protected virtual List<T> GetList<T, TKey>(Expression<Func<T, bool>> predicate,Expression<Func<T, TKey>> orderBy) where T : class
         {
             try
             {
                 if (predicate != null)
                 {
+                    return DataContext.Set<T>().Where(predicate).OrderBy(orderBy).ToList();
+                }
+                else
+                {
+                    DataContext.Set<T>().ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log error
+            }
+            return null;
+        }
+
+        protected virtual List<T> GetList<T, TKey>(Expression<Func<T, bool>> predicate, 
+                            Expression<Func<T, TKey>> orderBy, Expression<Func<T, bool>> include) where T : class
+        {
+            try
+            {
+                if (predicate != null)
+                {
+                    if (include == null)
+                        return DataContext.Set<T>().Include(include).Where(predicate).OrderBy(orderBy).ToList();
+
                     return DataContext.Set<T>().Where(predicate).OrderBy(orderBy).ToList();
                 }
                 else
